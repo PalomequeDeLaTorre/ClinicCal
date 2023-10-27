@@ -1,0 +1,53 @@
+<%- include ("../templates/encabezado")%>
+<%- include ("../templates/menu")%>
+
+<div class="container mt-5">
+  <div class="card"></div>
+    <div class="card-header">
+      <h1>Medicos</h1>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>nombre</th>
+            <th>apellidos</th>
+            <th>usuario</th>
+            <th>password</th>
+            <th>Editar/Borrar</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <% 
+            
+            medicos.forEach((medico) =>{ 
+              
+              
+              %>
+              <tr>
+                <td><%= medico.id %></td>
+                <td><%= medico.nombre %></td>
+                <td><%= medico.apellidos %></td>
+                <td><%= medico.usuario %></td>
+                <td><%= medico.password %></td>
+                <td>
+                  <a href="/editarMedico/<%= medico.id %>">Editar</a>
+                  <a href="/borrarMedico/<%= medico.id %>">Borrar</a>
+                </td>
+              </tr>
+            <% 
+          
+            }); 
+            
+            %>
+          
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+    </div>
+  
+  <%- include ("../templates/pie")%>
+

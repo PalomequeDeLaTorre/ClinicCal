@@ -1,0 +1,22 @@
+<%- include ("../templates/encabezado")%>
+<%- include ("../templates/menu")%>
+<div class="container mt-5">
+    <form action="/editar" method="post">
+        <div class="card" style="background-color: #E2F0D9; border: 2px solid #E2F0D9; border-radius: 20px; box-shadow: 0px 0px 20px #546223; max-width: 400px; margin: 0 auto;">
+            <div class="card-header" style="background-color: #546223; color: #ffffff; border-radius: 10px 10px 0px 0px;">
+                <h1 style="font-size: 24px; padding: 15px; text-align: center;">Modificar paciente</h1>
+            </div>
+            <div class="card-body">
+                <input type="hidden" name="id" id="id" value="<%= pacient.id%>">
+                <input class="form-control mb-3" type="text" value="<%= pacient.nombre%>" name="nombre" id="nombre" placeholder="Nombre" autofocus style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
+                <input class="form-control mb-3" type="text" value="<%= pacient.apellidos%>" name="apellidos" id="apellidos" placeholder="Apellidos" style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
+                <input class="form-control mb-3" type="text" value="<%= pacient.usuario%>" name="usuario" id="usuario" placeholder="Usuario" style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
+                <input class="form-control mb-3" type="password" value="<%= pacient.password%>" name="password" id="password" placeholder="Password" style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
+            </div>
+            <div class="card-footer" style="background-color: #E2F0D9; border-radius: 0px 0px 10px 10px;">
+                <button type="submit" class="form-control btn btn-primary" style="background-color: #1D21AA; color: #fff; border: none; border-radius: 5px; padding: 10px; width: 100%;">Modificar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<%- include ("../templates/pie")%>
