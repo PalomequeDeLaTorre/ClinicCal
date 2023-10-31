@@ -2,7 +2,7 @@ var ruta=require("express").Router();
 var {mostrarPacientes, nuevoPaciente, modificarPaciente, buscarPacientesPorID, borrarPaciente }=require("../bd/pacientesBD");
 
 ruta.get('/', (req, res) => {
-    res.render('pacientes/inicio');
+    res.render('templates/inicio');
 });
 
 ruta.get("/pacientes",async(req,res)=>{
@@ -11,11 +11,11 @@ ruta.get("/pacientes",async(req,res)=>{
     res.render("pacientes/mostrar",{pacientes});
 });
 
-ruta.get('/ingresar', (req, res) => {
-    res.render('pacientes/ingresar');
+ruta.get('/login', (req, res) => {
+    res.render('pacientes/login');
   });
 
-  ruta.post('/ingresar', async (req, res) => {
+  ruta.post('/login', async (req, res) => {
     var error = await mostrarPacientes(req.body);
     res.redirect("/pacientes");
 
@@ -28,7 +28,7 @@ ruta.get("/nuevopaciente",async(req,res)=>{
 
 ruta.post("/nuevopaciente",async(req, res)=>{
     var error=await nuevoPaciente(req.body);
-    res.redirect("/ingresar");
+    res.redirect("/login");
 
 });
 
