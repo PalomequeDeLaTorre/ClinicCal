@@ -2,7 +2,11 @@ var ruta=require("express").Router();
 var {mostrarPacientes, nuevoPaciente, modificarPaciente, buscarPacientesPorID, borrarPaciente }=require("../bd/pacientesBD");
 
 ruta.get('/', (req, res) => {
-    res.render('templates/inicio');
+    res.render('secciones/inicio');
+});
+
+ruta.get('/perfil', (req, res) => {
+    res.render('pacientes/perfil');
 });
 
 ruta.get("/pacientes",async(req,res)=>{

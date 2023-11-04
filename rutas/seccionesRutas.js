@@ -9,6 +9,9 @@ ruta.get('/contactanos', (req, res) => {
     res.render('secciones/contactanos');
 });
 
+ruta.get('/politicasDePrivacidad', (req, res) => {
+    res.render('secciones/politicasDePrivacidad');
+});
 
 
 module.exports = ruta;
