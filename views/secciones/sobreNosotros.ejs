@@ -1,0 +1,57 @@
+<%- include ("../templates/encabezado") %>
+<%- include ("../templates/menu") %>
+<div class="container mt-5">
+  <form action="/" method="post">
+    <div class="container mt-5">
+      <h1 class="text-center small-title" style="font-size: 25px; color: #546223;">Sobre Nosotros</h1>
+      <div class="text-center mt-3">
+        <p class="small-text" style="font-size: 20px; text-align: justify; color: #000000;">"La historia de ClinicCal es la de una joven empresa con una misión clara: potenciar la presencia en línea de médicos y profesionales de la salud. Nacimos para abordar el desafío que enfrentan muchos en la atención médica: crear sitios web efectivos y atractivos.
+
+          En un mundo en constante evolución, nuestro equipo de diseñadores web y desarrolladores se especializa en crear sitios web específicamente adaptados a las necesidades de médicos y clínicas. Nuestra misión es destacar la experiencia médica de nuestros clientes en la web, ayudándolos a conectarse de manera significativa con los pacientes.
+          
+          ClinicCal es una empresa joven y en crecimiento, comprometida con la satisfacción del cliente y la mejora constante. Estamos aquí para ser su socio confiable en la construcción de una presencia digital sólida en el mundo de la atención médica."</p>
+      </div>
+      <div class="text-center image-container">
+        <img src="https://i.blogs.es/e98999/650_1000_14976661122_609c258d1e_k/650_1200.jpg" alt="Imagen" style="max-width: 400px; height: auto; padding-top: 18px;">
+        <div class="image-overlay"></div>
+        <p class="small-text" style="font-size: 16px; padding-top: 5px; color: white; margin-top: 20px;">Equipo ClinicCal</p>
+      </div>
+    </div>
+    </div>
+  </form>
+</div>
+<div class="color-bar" style="background-image: linear-gradient(#212529, #212529); height: 80px; margin-top: 30px;">
+    <p class="text-center" style="font-size: 13px; padding-top: 35px; padding-right: 1160px;"><a href="/politicasDePrivacidad" style="color: #ffffff;">Políticas de Privacidad</a></p>
+  </div>
+
+  <style>
+    .image-container {
+      position: relative;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  
+    .image-container img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 90%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0.8) 100%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+  
+    .image-container:hover .image-overlay {
+      opacity: 1;
+    }
+    
+  </style>
+  
+<%- include ("../templates/pie")%>

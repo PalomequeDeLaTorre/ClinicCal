@@ -19,7 +19,7 @@ ruta.get('/login', (req, res) => {
     res.render('pacientes/login');
   });
 
-  ruta.post('/login', async (req, res) => {
+ruta.post('/login', async (req, res) => {
     var error = await mostrarPacientes(req.body);
     res.redirect("/pacientes");
 
