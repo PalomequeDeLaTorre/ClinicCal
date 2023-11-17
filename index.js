@@ -11,6 +11,8 @@ var session = require('express-session');
 var app=express();
 app.use(express.static('logo'));
 app.use(express.static('script'));
+app.use(express.static('public'));
+
 app.set("view engine", "ejs");
 app.use(cors());
 app.use(express.urlencoded({extended:true}));

@@ -1,0 +1,53 @@
+#calendario{
+    background: rgba(0, 0, 0, .1);
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 15px;
+    width: 300px;
+    margin: 0 auto;
+      display: inline-block;
+      vertical-align: top;
+  }
+   #formulario
+    {
+        display: inline-block;
+        vertical-align: top;
+    }
+  header {
+    overflow: clear;
+    position: relative;
+  }
+  h2 {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    text-align: center;
+  }
+  button {
+    position: absolute;
+    top: -4px;
+  }
+  button:first-child {
+    left: 0;
+  }
+  button:last-child {
+    right: 0;
+  }
+  table {
+    background: #fff;
+    border-collapse: collapse;
+    color: #222;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 13px;
+    width: 100%;
+  }
+  td {
+    color: #444;
+    line-height: 22px;
+    text-align: center;
+  }
+  tr:first-child td {
+    color: #222;
+    font-weight: 700;
+  }
