@@ -73,7 +73,7 @@ ruta.get("/editarPaciente/:id",async(req, res)=>{
 /*ruta.post("/editarPaciente", async(req,res)=>{
     var error=await modificarPaciente(req.body);
     res.redirect("/");
-});*/
+});
 
 ruta.post("/editarPaciente",subirImage(), async (req, res) => { 
   if(req.file!=undefined){
@@ -86,6 +86,30 @@ ruta.post("/editarPaciente",subirImage(), async (req, res) => {
   var error=await modificarPaciente(req.body);
   res.redirect("/");
   
+});*/
+
+ruta.post("/editarPaciente", subirImage(), async (req, res) => {
+  try {
+    const pacienteAntesDeActualizar = await buscarPacientesPorID(req.body.id);
+
+    if (req.file !== undefined) {
+      req.body.foto = req.file.originalname;
+
+      if (pacienteAntesDeActualizar.foto) {
+        await fs.unlink(`./web/images/${pacienteAntesDeActualizar.foto}`);
+      }
+    } else {
+     
+      req.body.foto = req.body.fotoVieja;
+    }
+
+    var error = await modificarPaciente(req.body);
+
+    res.redirect("/");
+  } catch (error) {
+    console.error('Error al actualizar el paciente:', error);
+    res.status(500).send("Error al actualizar el paciente");
+  }
 });
 
 /*ruta.get("/borrarPaciente/:id", async(req,res)=>{

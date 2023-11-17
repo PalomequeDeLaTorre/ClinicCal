@@ -133,12 +133,12 @@ async function nuevoPaciente(datos){
     if (pacient.bandera === 0){
     try{
         await conexion.doc().set(pacient.obtenerDatos);
-        console.log("Usuario insertado a la BD");
+        console.log("Paciente insertado a la BD");
         error=0;
     }
 
     catch(err){
-        console.log("Error al capturar al nuevo usuario"+err);
+        console.log("Error al capturar al nuevo paciente"+err);
 
     }
 
@@ -147,7 +147,7 @@ async function nuevoPaciente(datos){
 
 }
 
-async function modificarPaciente(datos){
+/*async function modificarPaciente(datos){
     var error=1;
     var respuestaBuscar=await buscarPacientesPorID(datos.id);
     if(respuestaBuscar!=undefined){
@@ -164,12 +164,12 @@ async function modificarPaciente(datos){
     if (pacient.bandera === 0){
         try{
             await conexion.doc(pacient.id).set(pacient.obtenerDatos);
-            console.log("Usuario actualizado");
+            console.log("Paciente actualizado");
             error=0;
 
         }
         catch(err){
-            console.log("Error al modificar el usuario"+err);
+            console.log("Error al modificar el paciente"+err);
 
         }
     }
@@ -177,7 +177,52 @@ async function modificarPaciente(datos){
 }
     return error;
 
+}*/
+
+async function modificarPaciente(datos) {
+    var error = 1;
+    var respuestaBuscar = await buscarPacientesPorID(datos.id);
+
+    if (respuestaBuscar !== undefined) {
+        try {
+            // Verificar si se proporcionó una nueva contraseña
+            if (datos.password !== "") {
+                var { salt, hash } = encriptarPassword(datos.password);
+                datos.password = hash;
+                datos.salt = salt;
+            } else {
+                // Si no se proporciona una nueva contraseña, mantener la antigua
+                datos.password = respuestaBuscar.password;
+                datos.salt = respuestaBuscar.salt;
+            }
+
+            // Verificar si se proporcionó una nueva foto
+            if (datos.foto && datos.foto !== respuestaBuscar.foto) {
+                // Si se proporciona una nueva foto y es diferente a la anterior, actualizarla
+                // Eliminar la foto anterior si existe
+                if (respuestaBuscar.foto) {
+                    await fs.unlink(`./web/images/${respuestaBuscar.foto}`);
+                }
+            } else {
+                // Si no se proporciona una nueva foto o es igual a la anterior, mantener la antigua
+                datos.foto = respuestaBuscar.foto;
+            }
+
+            var pacient = new Paciente(datos.id, datos);
+
+            if (pacient.bandera === 0) {
+                await conexion.doc(pacient.id).set(pacient.obtenerDatos);
+                console.log("Usuario actualizado");
+                error = 0;
+            }
+        } catch (err) {
+            console.log("Error al modificar el usuario" + err);
+        }
+    }
+
+    return error;
 }
+
 
 
 /*async function borrarPaciente(id){
@@ -194,7 +239,7 @@ async function modificarPaciente(datos){
 
 }*/
 
-async function borrarPaciente(id){
+/*async function borrarPaciente(id){
     var error=1;
     var pacient=await buscarPacientesPorID(id);
     if(pacient!=undefined){
@@ -213,6 +258,29 @@ async function borrarPaciente(id){
 
     return error;
 
+}*/
+
+async function borrarPaciente(id) {
+    var error = 1;
+    var pacient = await buscarPacientesPorID(id);
+
+    if (pacient !== undefined) {
+        try {
+            // Eliminar la foto asociada al usuario
+            if (pacient.foto) {
+                await fs.unlink(`./web/images/${pacient.foto}`);
+            }
+
+            // Eliminar al usuario
+            await conexion.doc(id).delete();
+            console.log("Usuario borrado");
+            error = 0;
+        } catch (err) {
+            console.log("Error al borrar el usuario" + err);
+        }
+    }
+
+    return error;
 }
 
 
@@ -225,5 +293,6 @@ module.exports={
     modificarPaciente,
     borrarPaciente,
     verificarCredenciales,
-    compararPassword
+    compararPassword,
+    
 }
