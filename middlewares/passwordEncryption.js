@@ -39,6 +39,8 @@ else{
   }
 }*/
 
+
+
 module.exports={
     encriptarPassword,
     validarPassword

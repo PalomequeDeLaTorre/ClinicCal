@@ -7,8 +7,20 @@ ruta.get('/', (req, res) => {
     res.render('secciones/inicio');
 });
 
-ruta.get('/perfil', (req, res) => {
-    res.render('pacientes/perfil');
+ruta.get('/perfil', async (req, res) => {
+  if (req.session.isLoggedIn) {
+    // Obtener la información del paciente después de iniciar sesión
+    const pacienteId = req.session.pacienteId; // Supongamos que tienes la información del paciente en la sesión
+
+    if (pacienteId) {
+      const paciente = await buscarPacientesPorID(pacienteId);
+      res.render('pacientes/perfil', { paciente });
+    } else {
+      res.redirect('/login'); // Redirigir si no se encuentra la información del paciente
+    }
+  } else {
+    res.redirect('/login'); // Redirigir si no se ha iniciado sesión
+  }
 });
 
 ruta.get('/login', (req, res) => {
@@ -22,12 +34,14 @@ ruta.get('/login', (req, res) => {
   
     if (pacient) {
       req.session.isLoggedIn = true;
+      req.session.pacienteId = pacient.id;
       res.redirect('/mostrar');
     } else {
       res.render('pacientes/login', { error: 'Credenciales incorrectas' });
     }
   });
 
+  
   ruta.get("/mostrar", async (req, res) => {
     try {
       var pacientes = await mostrarPacientes();
@@ -70,24 +84,6 @@ ruta.get("/editarPaciente/:id",async(req, res)=>{
 
 });
 
-/*ruta.post("/editarPaciente", async(req,res)=>{
-    var error=await modificarPaciente(req.body);
-    res.redirect("/");
-});
-
-ruta.post("/editarPaciente",subirImage(), async (req, res) => { 
-  if(req.file!=undefined){
-    req.body.foto=req.file.originalname;
-  }
-  else{
-    req.body.foto=req.body.fotoVieja;
-
-  }
-  var error=await modificarPaciente(req.body);
-  res.redirect("/");
-  
-});*/
-
 ruta.post("/editarPaciente", subirImage(), async (req, res) => {
   try {
     const pacienteAntesDeActualizar = await buscarPacientesPorID(req.body.id);
@@ -111,12 +107,6 @@ ruta.post("/editarPaciente", subirImage(), async (req, res) => {
     res.status(500).send("Error al actualizar el paciente");
   }
 });
-
-/*ruta.get("/borrarPaciente/:id", async(req,res)=>{
-    await borrarPaciente(req.params.id);
-    res.redirect("/");
-
-});*/
 
 ruta.get("/borrarPaciente/:id", async (req, res) => {
   try {
