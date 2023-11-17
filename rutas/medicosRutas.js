@@ -5,15 +5,15 @@ ruta.get('/medicos', (req, res) => {
     res.render('medicos/loginMedico');
   });
 
-  ruta.post('/loginMedico', async (req, res) => {
+ruta.post('/loginMedico', async (req, res) => {
     var error = await mostrarMedicos(req.body);
-    res.redirect("/mostrar");
+    res.redirect("/mostrarMedico");
 
   });
   
-ruta.get("/mostrar", async (req, res) => {
+ruta.get("/mostrarMedico", async (req, res) => {
     var medicos = await mostrarMedicos();
-    res.render("medicos/mostrar", { medicos });
+    res.render("medicos/mostrarMedico", { medicos });
 });
 
 ruta.get("/nuevomedico", async (req, res) => {
