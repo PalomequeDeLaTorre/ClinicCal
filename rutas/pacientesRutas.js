@@ -10,9 +10,11 @@ ruta.get('/', (req, res) => {
 ruta.get('/perfil', async (req, res) => {
   if (req.session.isLoggedIn) {
     const pacienteId = req.session.pacienteId; 
-
+    const nombre = req.session.pacienteNombre;
+    console.log(pacienteId);
     if (pacienteId) {
       const paciente = await buscarPacientesPorID(pacienteId);
+      console.log(paciente);
       res.render('pacientes/perfil', { paciente });
     } else {
       res.redirect('/login'); 
@@ -30,12 +32,12 @@ ruta.get('/login', (req, res) => {
     const { usuario, password } = req.body;
   
     const pacient = await verificarCredenciales(usuario, password);
-  
+    //console.log(pacient);
     if (pacient) {
       req.session.isLoggedIn = true;
       req.session.pacienteId = pacient.id;
       req.session.pacienteNombre = pacient.nombre;
-      res.redirect('/mostrar');
+      res.redirect('/perfil');
     } else {
       res.render('pacientes/login', { error: 'Credenciales incorrectas' });
     }

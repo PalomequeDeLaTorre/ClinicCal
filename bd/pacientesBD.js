@@ -1,5 +1,5 @@
 var conexion=require("./conexion").conexionPacientes;
-var {encriptarPassword}=require("../middlewares/passwordEncryption");
+var {encriptarPassword, validarPassword}=require("../middlewares/passwordEncryption");
 var Paciente=require("../modelos/Paciente");
 const bcrypt = require('bcrypt');
 
@@ -9,11 +9,14 @@ async function verificarCredenciales(usuario, password) {
         if (querySnapshot.empty) {
             return null;
         }
-        const usuarioEncontrado = querySnapshot.docs[0].data();
-
+        var usuarioEncontrado = querySnapshot.docs[0].data();
+        usuarioEncontrado.id=  querySnapshot.docs[0].id;
+        //console.log("kljsgkldf");
+        //console.log(usuarioEncontrado);
         if (usuarioEncontrado.password !== undefined && usuarioEncontrado.salt !== undefined) {
-            const contraseñaValida = compararPassword(password, usuarioEncontrado.password, usuarioEncontrado.salt);
-
+            //console.log(password);
+            const contraseñaValida = await validarPassword(password, usuarioEncontrado.password, usuarioEncontrado.salt);
+            //console.log(contraseñaValida);
             if (contraseñaValida) {
                 return usuarioEncontrado;
             } else {
