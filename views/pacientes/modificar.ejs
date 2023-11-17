@@ -1,7 +1,7 @@
 <%- include ("../templates/encabezado")%>
 <%- include ("../templates/menu")%>
 <div class="container mt-5">
-    <form action="/editar" method="post">
+    <form action="/editarPaciente" method="post" enctype="multipart/form-data">
         <div class="card" style="background-color: #E2F0D9; border: 2px solid #E2F0D9; border-radius: 20px; box-shadow: 0px 0px 20px #546223; max-width: 400px; margin: 0 auto;">
             <div class="card-header" style="background-color: #546223; color: #ffffff; border-radius: 10px 10px 0px 0px;">
                 <h1 style="font-size: 24px; padding: 15px; text-align: center;">Modificar paciente</h1>
@@ -12,6 +12,7 @@
                 <input class="form-control mb-3" type="text" value="<%= pacient.apellidos%>" name="apellidos" id="apellidos" placeholder="Apellidos" style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
                 <input class="form-control mb-3" type="text" value="<%= pacient.usuario%>" name="usuario" id="usuario" placeholder="Usuario" style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
                 <input class="form-control mb-3" type="password" value="<%= pacient.password%>" name="password" id="password" placeholder="Password" style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
+                <input class="form-control mb-3" type="file" name="foto" id="foto" style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
             </div>
             <div class="card-footer" style="background-color: #E2F0D9; border-radius: 0px 0px 10px 10px;">
                 <button type="submit" class="form-control btn btn-primary" style="background-color: #1D21AA; color: #fff; border: none; border-radius: 5px; padding: 10px; width: 100%;">Modificar</button>
@@ -19,4 +20,7 @@
         </div>
     </form>
 </div>
+<div class="color-bar" style="background-image: linear-gradient(#212529, #212529); height: 80px; margin-top: 55px;">
+    <p class="text-center" style="font-size: 13px; padding-top: 35px; padding-right: 1160px;"><a href="/politicasDePrivacidad" style="color: #ffffff;">Políticas de Privacidad</a></p>
+  </div>
 <%- include ("../templates/pie")%>

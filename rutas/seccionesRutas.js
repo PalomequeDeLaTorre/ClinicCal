@@ -5,7 +5,6 @@ ruta.get('/secciones', (req, res) => {
     res.render('secciones/acercaDelMedico');
 });
 
-
 ruta.get('/sobreNosotros', (req, res) => {
     res.render('secciones/sobreNosotros');
 });

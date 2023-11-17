@@ -1,10 +1,46 @@
 var conexion=require("./conexion").conexionPacientes;
+var {encriptarPassword}=require("../middlewares/passwordEncryption");
 var Paciente=require("../modelos/Paciente");
+const bcrypt = require('bcrypt');
+
+async function verificarCredenciales(usuario, password) { 
+    try {
+        const querySnapshot = await conexion.where("usuario", "==", usuario).get();
+        if (querySnapshot.empty) {
+            return null;
+        }
+        const usuarioEncontrado = querySnapshot.docs[0].data();
+
+        if (usuarioEncontrado.password !== undefined && usuarioEncontrado.salt !== undefined) {
+            const contraseñaValida = compararPassword(password, usuarioEncontrado.password, usuarioEncontrado.salt);
+
+            if (contraseñaValida) {
+                return usuarioEncontrado;
+            } else {
+                return null;
+            }
+        } else {
+            return null; 
+        }
+    } catch (error) {
+        console.log("Error al verificar las credenciales: " + error);
+        return null;
+    }
+}
+
+async function compararPassword(contraseñaIngresada, contraseñaAlmacenada) {
+    try {
+        return await bcrypt.compare(contraseñaIngresada, contraseñaAlmacenada);
+    } catch (error) {
+        console.log("Error al comparar contraseñas: " + error);
+        return false;
+    }
+}
 
 async function mostrarPacientes(){
     var pacients=[];
     try{
-       
+
         var pacientes=await conexion.get();
         pacientes.forEach(paciente => {
             var pacient=new Paciente(paciente.id, paciente.data());
@@ -47,7 +83,7 @@ async function buscarPacientesPorID(id){
 
 }
 
-async function nuevoPaciente(datos){
+/*async function nuevoPaciente(datos){
     var pacient=new Paciente(null, datos);
     console.log(pacient);
     var error=1;
@@ -66,9 +102,10 @@ async function nuevoPaciente(datos){
   }
   return error;
 
-}
+}*/
 
-async function modificarPaciente(datos){
+
+/*async function modificarPaciente(datos){
     var pacient=new Paciente(datos.id,datos)
     var error=1;
     if (pacient.bandera === 0){
@@ -85,9 +122,65 @@ async function modificarPaciente(datos){
     }
     return error;
 
+}*/
+
+async function nuevoPaciente(datos){
+    var {hash, salt}=encriptarPassword(datos.password); 
+    datos.password=hash; 
+    datos.salt=salt; 
+    var pacient=new Paciente(null,datos);
+    var error=1;
+    if (pacient.bandera === 0){
+    try{
+        await conexion.doc().set(pacient.obtenerDatos);
+        console.log("Usuario insertado a la BD");
+        error=0;
+    }
+
+    catch(err){
+        console.log("Error al capturar al nuevo usuario"+err);
+
+    }
+
+  }
+  return error;
+
 }
 
-async function borrarPaciente(id){
+async function modificarPaciente(datos){
+    var error=1;
+    var respuestaBuscar=await buscarPacientesPorID(datos.id);
+    if(respuestaBuscar!=undefined){
+        if(datos.password==""){ 
+            datos.password=datos.passwordViejo; 
+            datos.salt=datos.saltViejo; 
+        }
+        else{
+            var {salt, hash}=encriptarPassword(datos.password); 
+            datos.password=hash; 
+            datos.salt=salt; 
+        }
+    var pacient=new Paciente(datos.id,datos)
+    if (pacient.bandera === 0){
+        try{
+            await conexion.doc(pacient.id).set(pacient.obtenerDatos);
+            console.log("Usuario actualizado");
+            error=0;
+
+        }
+        catch(err){
+            console.log("Error al modificar el usuario"+err);
+
+        }
+    }
+
+}
+    return error;
+
+}
+
+
+/*async function borrarPaciente(id){
     try{
         await conexion.doc(id).delete();
         console.log("Registro borrado");
@@ -99,12 +192,38 @@ async function borrarPaciente(id){
 
     }
 
+}*/
+
+async function borrarPaciente(id){
+    var error=1;
+    var pacient=await buscarPacientesPorID(id);
+    if(pacient!=undefined){
+    try{
+        await conexion.doc(id).delete();
+        console.log("Paciente borrado");
+        error=0;
+    }
+
+    catch(err){
+        console.log("Error al borrar el paciente" + err);
+
+    }
+
+    }
+
+    return error;
+
 }
+
+
+
 
 module.exports={
     mostrarPacientes,
     buscarPacientesPorID,
     nuevoPaciente,
     modificarPaciente,
-    borrarPaciente
+    borrarPaciente,
+    verificarCredenciales,
+    compararPassword
 }

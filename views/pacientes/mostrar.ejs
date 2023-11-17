@@ -2,60 +2,47 @@
 <%- include ("../templates/menu")%>
 
 <div class="container mt-5">
-    <div class="card" style="background-color: #E2F0D9; border: 2px solid #E2F0D9; border-radius: 20px; box-shadow: 0px 0px 20px #546223; max-width: 1000px; margin: 0 auto; text-align: center;">
-       <div class="card-header" style="background-image: linear-gradient(#546223, #546223d5); color: white; border-radius: 15px 15px 0px 0px;" >
-        <h1 style="font-size: 30px;">Pacientes</h1>
-       </div>
-       <div class="card-body">
-        <table class="table table-hover">
-           <thead>
+  <div class="card"></div>
+    <div class="card-header">
+      <h1>pacientes</h1>
+    </div>
+    <div class="card-body">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>nombre</th>
+            <th>apellidos</th>
+            <th>usuario</th>
+            <th>password</th>
+            <th>foto</th>
+            <th>Editar/Borrar</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% pacientes.forEach((paciente) => { %>
               <tr>
-                <th>id</th>
-                <th>nombre</th>
-                <th>apellidos</th>
-                <th>usuario</th>
-                <th>password</th>
-                <th>Editar/Borrar</th>
+                <td><%= paciente.id %></td>
+                <td><%= paciente.nombre %></td>
+                <td><%= paciente.apellidos %></td>
+                <td><%= paciente.usuario %></td>
+                <td>*****</td>
+                <td><img src="/images/<%= paciente.foto %>" width="100px" alt=""></td>
+                <td>
+                  <a href="/editarPaciente/<%= paciente.id %>">Editar</a>
+                  <a href="/borrarPaciente/<%= paciente.id %>">Borrar</a>
+                </td>
               </tr>
-           </thead>
-           <tbody>
-            
-                <% 
-                
-                pacientes.forEach((paciente)=>{ 
-                  
-                %>
-
-                 <tr>
-                    <td><%= paciente.id %></td>
-                    <td><%= paciente.nombre %></td>
-                    <td><%= paciente.apellidos %></td>
-                    <td><%= paciente.usuario %></td>
-                    <td><%= paciente.password %></td>
-                    <td>
-                     <a href="/editar/<%= paciente.id %>" style="color: blue;" >Editar</a>
-                     <a href="/borrar/<%= paciente.id %>" style="color: red;">Borrar</a>
-                    </td>
-                    
-                 </tr>
-
-                 <%
-
-                 });
-
-                %>
-                
-           </tbody>
-        </table>
-       </div>
-      </div>
-       <div class="card-footer">
-       </div>
-       
-
-
-<%- include ("../templates/pie")%>
-
-
+            <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+    </div>
+    <div class="color-bar" style="background-image: linear-gradient(#E2F0D9, #E2F0D9); height: 110px;">
+      <p class="text-center" style="font-size: 16px; padding-top: 45px; padding-right: 1150px;"><a href="/" style="color: #546223;">Políticas de Privacidad</a></p>
+    </div>
+  
+  <%- include ("../templates/pie")%>
     
 

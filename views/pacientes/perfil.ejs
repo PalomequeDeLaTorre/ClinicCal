@@ -2,36 +2,19 @@
 <%- include ("../templates/menu")%>
 
 <div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <img src="../paciente.jpg" alt="Foto de perfil" class="card-img-top" style="max-width: 400px;">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 25px; text-align: center;">Paola Ruiz Albores</h5>
-                </div>
-            </div>
+    <div class="card" style="background-color: #E2F0D9; border: 2px solid #E2F0D9; border-radius: 20px; box-shadow: 0px 0px 20px #546223; max-width: 1000px; margin: 0 auto; text-align: center;">
+        <div class="card-header" style="background-image: linear-gradient(#546223, #546223d5); color: white; border-radius: 15px 15px 0px 0px;">
+            <h1 style="font-size: 30px;">Perfil de Usuario</h1>
         </div>
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">Agenda una Cita</h2>
-                    <form action="/solicitud-cita" method="post">
-                        <div class="form-group">
-                            <label for="fecha_hora">Seleccione una fecha y hora para la cita:</label>
-                            <input type="text" id="fecha_hora" name="fecha_hora" class="form-control" required>
-                        </div>
-                        <div class="form-group" style="margin-top: 30px;">
-                            <textarea name="mensaje" class="form-control" placeholder="Mensaje o Razón de la Cita" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Agendar Cita</button>
-                    </form>
-                </div>
-            </div>
+        <div class="card-body">
+            <h2>Nombre: <%= paciente.nombre %></h2>
+            <h2>Apellidos: <%= paciente.apellidos %></h2>
+            
+            <!-- Otros detalles del perfil del usuario -->
         </div>
     </div>
-</div>
-<div class="color-bar" style="background-image: linear-gradient(#212529, #212529); height: 80px; margin-top: 90px;">
-    <p class="text-center" style="font-size: 13px; padding-top: 35px; padding-right: 1160px;"><a href="/politicasDePrivacidad" style="color: #ffffff;">Políticas de Privacidad</a></p>
+    <div class="card-footer">
+    </div>
 </div>
 
 <%- include ("../templates/pie")%>

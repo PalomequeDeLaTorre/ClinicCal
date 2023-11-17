@@ -2,10 +2,10 @@ var ruta = require("express").Router();
 var { mostrarMedicos, nuevoMedico, modificarMedico, buscarMedicosPorID, borrarMedico } = require("../bd/medicosBD");
 
 ruta.get('/medicos', (req, res) => {
-    res.render('medicos/login');
+    res.render('medicos/loginMedico');
   });
 
-  ruta.post('/login', async (req, res) => {
+  ruta.post('/loginMedico', async (req, res) => {
     var error = await mostrarMedicos(req.body);
     res.redirect("/mostrar");
 
