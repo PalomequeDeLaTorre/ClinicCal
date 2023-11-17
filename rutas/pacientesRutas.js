@@ -9,17 +9,16 @@ ruta.get('/', (req, res) => {
 
 ruta.get('/perfil', async (req, res) => {
   if (req.session.isLoggedIn) {
-    // Obtener la información del paciente después de iniciar sesión
-    const pacienteId = req.session.pacienteId; // Supongamos que tienes la información del paciente en la sesión
+    const pacienteId = req.session.pacienteId; 
 
     if (pacienteId) {
       const paciente = await buscarPacientesPorID(pacienteId);
       res.render('pacientes/perfil', { paciente });
     } else {
-      res.redirect('/login'); // Redirigir si no se encuentra la información del paciente
+      res.redirect('/login'); 
     }
   } else {
-    res.redirect('/login'); // Redirigir si no se ha iniciado sesión
+    res.redirect('/login'); 
   }
 });
 
@@ -35,6 +34,7 @@ ruta.get('/login', (req, res) => {
     if (pacient) {
       req.session.isLoggedIn = true;
       req.session.pacienteId = pacient.id;
+      req.session.pacienteNombre = pacient.nombre;
       res.redirect('/mostrar');
     } else {
       res.render('pacientes/login', { error: 'Credenciales incorrectas' });
