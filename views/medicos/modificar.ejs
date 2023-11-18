@@ -8,10 +8,10 @@
       </div>
       <div class="card-body">
         <input type="hidden" name="id" id="id" value="<%= medico.id %>">
-        <input class="form-control mb-3" type="text" value="<%= medico.nombre%>" name="nombre" id="nombre" placeholder="Nombre" autofocus>
-        <input class="form-control mb-3" type="text" value="<%= medico.apellidos%>" name="apellidos" id="apellidos" placeholder="Apellidos">
-        <input class="form-control mb-3" type="text" value="<%= medico.usuario%>" name="usuario" id="usuario" placeholder="Usuario">
-        <input class="form-control mb-3" type="password" value="<%= medico.password%>" name="password" id="password" placeholder="Password">
+        <p style="font-size: 14px; font-weight: bold;">Nombre(s):</p><input class="form-control mb-3" type="text" value="<%= medico.nombre%>" name="nombre" id="nombre" placeholder="Nombre" autofocus>
+        <p style="font-size: 14px; font-weight: bold;">Apellidos:</p><input class="form-control mb-3" type="text" value="<%= medico.apellidos%>" name="apellidos" id="apellidos" placeholder="Apellidos">
+        <p style="font-size: 14px; font-weight: bold;">Usuario:</p><input class="form-control mb-3" type="text" value="<%= medico.usuario%>" name="usuario" id="usuario" placeholder="Usuario">
+        <p style="font-size: 14px; font-weight: bold;">Password:</p><input class="form-control mb-3" type="password" value="<%= medico.password%>" name="password" id="password" placeholder="Password">
       </div>
       <div class="card-footer">
         <button type="submit" class="form-control btn btn-primary">Modificar medico</button>

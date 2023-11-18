@@ -119,7 +119,7 @@ ruta.get("/borrarPaciente/:id", async (req, res) => {
     await fs.unlink(`./web/images/${pacient.foto}`);
     await borrarPaciente(req.params.id);
 
-    res.redirect("/");
+    res.redirect("/login");
   } catch (error) {
     console.error('Error al borrar la foto o paciente:', error);
     res.status(500).send("Error al borrar la foto o paciente");
