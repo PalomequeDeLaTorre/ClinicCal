@@ -10,6 +10,13 @@
                 <h1 style="font-size: 20px; padding: 15px; text-align: center;">Iniciar Sesión</h1>
             </div>
             <div class="card-body">
+
+                <% if (typeof error !== 'undefined') { %>
+                    <div class="alert alert-danger" style="background-color: #e74c3c; color: #fff; border: 1px solid #c0392b; border-radius: 5px; padding: 10px;">
+                        <%= error %>
+                    </div>
+                    <% } %>
+
                 <p style="font-size: 15px; font-weight: bold;" >Usuario:</p><input class="form-control mb-3" type="text" name="usuario" id="usuario" placeholder="Usuario" autofocus style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
                 <p style="font-size: 15px; font-weight: bold;" >Password:</p><input class="form-control mb-3" type="password" name="password" id="password" placeholder="Contraseña" style="background-color: #ffffff; color: #000000; border: 1px solid #E2F0D9; border-radius: 5px; width: 100%;">
             </div>

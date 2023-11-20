@@ -1,7 +1,7 @@
 var ruta = require("express").Router();
 
 
-ruta.get('/secciones', (req, res) => {
+ruta.get('/acercaDelMedico', (req, res) => {
     res.render('secciones/acercaDelMedico');
 });
 

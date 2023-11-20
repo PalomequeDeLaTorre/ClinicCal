@@ -43,7 +43,12 @@ ruta.get('/login', (req, res) => {
     }
   });
 
+  ruta.get("/logout", (req,res)=>{ 
+    req.session=null;
+    res.redirect("/login");
   
+  });
+
   ruta.get("/mostrar", async (req, res) => {
     try {
       var pacientes = await mostrarPacientes();
@@ -103,7 +108,7 @@ ruta.post("/editarPaciente", subirImage(), async (req, res) => {
 
     var error = await modificarPaciente(req.body);
 
-    res.redirect("/");
+    res.redirect("/perfil");
   } catch (error) {
     console.error('Error al actualizar el paciente:', error);
     res.status(500).send("Error al actualizar el paciente");
@@ -125,5 +130,6 @@ ruta.get("/borrarPaciente/:id", async (req, res) => {
     res.status(500).send("Error al borrar la foto o paciente");
   }
 });
+
 
 module.exports=ruta;

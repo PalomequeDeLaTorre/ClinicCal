@@ -16,11 +16,11 @@ class Paciente{
     }
 
     set nombre(nombre){
-        nombre.length>0? (this._nombre=nombre):(this.bandera=1);
+        nombre.length>0?(this._nombre=nombre):(this.bandera=1);
     }
 
     set apellidos(apellidos) {
-        apellidos.length > 0 ? (this._apellidos=apellidos) : (this.bandera = 1);
+        apellidos.length>0?(this._apellidos=apellidos):(this.bandera = 1);
     }
 
     set usuario(usuario){
@@ -68,7 +68,7 @@ class Paciente{
         return this._salt;
     }
 
-    get obtenerDatos(){
+    get obtenerDatosM(){
         if(this._id!=null)
         return {
             id:this.id,
@@ -78,7 +78,7 @@ class Paciente{
             password:this.password,
             foto: this.foto,
             salt: this.salt,
-        }
+        };
         else{
             return {
                 nombre:this.nombre,

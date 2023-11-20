@@ -31,14 +31,6 @@ async function verificarCredenciales(usuario, password) {
     }
 }
 
-/*async function compararPassword(contraseñaIngresada, contraseñaAlmacenada) {
-    try {
-        return await bcrypt.compare(contraseñaIngresada, contraseñaAlmacenada);
-    } catch (error) {
-        console.log("Error al comparar contraseñas: " + error);
-        return false;
-    }
-}*/
 
 async function mostrarPacientes(){
     var pacients=[];
@@ -178,6 +170,7 @@ async function borrarPaciente(id) {
 
 
 
+
 module.exports={
     mostrarPacientes,
     buscarPacientesPorID,
@@ -185,6 +178,5 @@ module.exports={
     modificarPaciente,
     borrarPaciente,
     verificarCredenciales,
-
     
 };

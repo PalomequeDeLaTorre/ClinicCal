@@ -1,11 +1,13 @@
-class Medico {
+class Medico{
     constructor(id, data) {
         this.bandera = 0;
-        this.id = id;
-        this.nombre = data.nombre;
-        this.apellidos = data.apellidos;
-        this.usuario = data.usuario;
-        this.password = data.password;
+        this.id=id;
+        this.nombre=data.nombre;
+        this.apellidos=data.apellidos;
+        this.usuario=data.usuario;
+        this.password=data.password;
+        this.foto=data.foto;
+        this.salt=data.salt;
     }
 
     set id(id) {
@@ -18,15 +20,24 @@ class Medico {
     }
 
     set apellidos(apellidos) {
-        apellidos.length > 0 ? (this._apellidos = apellidos) : (this.bandera = 1);
+        apellidos.length>0?(this._apellidos=apellidos):(this.bandera=1);
     }
 
     set usuario(usuario) {
-        usuario.length > 0 ? (this._usuario = usuario) : (this.bandera = 1);
+        usuario.length>0?(this._usuario=usuario):(this.bandera=1);
     }
 
     set password(password) {
-        password.length > 0 ? (this._password = password) : (this.bandera = 1);
+        password.length>0?(this._password=password):(this.bandera=1);
+    }
+
+    set foto(foto) {
+        foto.length>0?(this._foto=foto):(this.bandera=1);
+    }
+
+    set salt(salt) { 
+        salt.length>0?(this._salt=salt):(this.bandera=1);
+     
     }
 
     get id() {
@@ -49,7 +60,15 @@ class Medico {
         return this._password;
     }
 
-    obtenerDatosM() {
+    get foto() {
+        return this._foto;
+    }
+
+    get salt() {
+        return this._salt;
+    }
+
+    get obtenerDatosM() {
         if (this._id != null)
             return {
                 id: this.id,
@@ -57,6 +76,8 @@ class Medico {
                 apellidos: this.apellidos,
                 usuario: this.usuario,
                 password: this.password,
+                foto: this.foto,
+                salt: this.salt,
             };
         else {
             return {
@@ -64,6 +85,8 @@ class Medico {
                 apellidos: this.apellidos,
                 usuario: this.usuario,
                 password: this.password,
+                foto: this.foto,
+                salt: this.salt,
             };
         }
     }
