@@ -68,7 +68,7 @@ class Paciente{
         return this._salt;
     }
 
-    get obtenerDatosM(){
+    get obtenerDatos(){
         if(this._id!=null)
         return {
             id:this.id,
