@@ -20,7 +20,6 @@ ruta.get('/perfilMedico', async (req, res) => {
     }
   });
 
-  
 ruta.get('/loginMedico', (req, res) => {
     res.render('medicos/loginMedico');
   });
@@ -39,7 +38,7 @@ ruta.get('/loginMedico', (req, res) => {
     }
   });
 
-  /*ruta.get('/admin', async (req, res) => {
+  ruta.get('/admin', async (req, res) => {
     if (req.session.isLoggedIn) {
       const medicoId = req.session.medicoId; 
       const nombre = req.session.medicoNombre;
@@ -54,7 +53,7 @@ ruta.get('/loginMedico', (req, res) => {
     } else {
       res.redirect('/loginAdmin'); 
     }
-  });*/
+  });
 
 
   ruta.get('/loginAdmin', (req, res) => {
