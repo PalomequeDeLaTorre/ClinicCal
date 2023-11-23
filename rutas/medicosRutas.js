@@ -39,7 +39,7 @@ ruta.get('/loginMedico', (req, res) => {
     }
   });
 
-  ruta.get('/admin', async (req, res) => {
+  /*ruta.get('/admin', async (req, res) => {
     if (req.session.isLoggedIn) {
       const medicoId = req.session.medicoId; 
       const nombre = req.session.medicoNombre;
@@ -54,14 +54,14 @@ ruta.get('/loginMedico', (req, res) => {
     } else {
       res.redirect('/loginAdmin'); 
     }
-  });
+  });*/
 
 
   ruta.get('/loginAdmin', (req, res) => {
     res.render('medicos/LoginAdmin');
   });
 
-  /*ruta.post('/loginAdmin', async (req, res) => {
+  ruta.post('/loginAdmin', async (req, res) => {
     const { usuario, password } = req.body;
   
     const med = await verificarCredenciales(usuario, password);
@@ -73,7 +73,7 @@ ruta.get('/loginMedico', (req, res) => {
     } else {
       res.render('medicos/loginAdmin', { error: 'Credenciales incorrectas' });
     }
-  });*/
+  });
 
 
   ruta.get("/logoutMed", (req,res)=>{ 
