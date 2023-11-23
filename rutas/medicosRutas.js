@@ -61,7 +61,7 @@ ruta.get('/loginMedico', (req, res) => {
     res.render('medicos/LoginAdmin');
   });
 
-  ruta.post('/loginAdmin', async (req, res) => {
+  /*ruta.post('/loginAdmin', async (req, res) => {
     const { usuario, password } = req.body;
   
     const med = await verificarCredenciales(usuario, password);
@@ -73,7 +73,7 @@ ruta.get('/loginMedico', (req, res) => {
     } else {
       res.render('medicos/loginAdmin', { error: 'Credenciales incorrectas' });
     }
-  });
+  });*/
 
 
   ruta.get("/logoutMed", (req,res)=>{ 
