@@ -43,24 +43,6 @@ ruta.get('/login', (req, res) => {
     }
   });
 
-  /*ruta.get('/admin', (req, res) => {
-    res.render('pacientes/admin');
-  });
-
-  ruta.post('/admin', async (req, res) => {
-    const { usuario, password } = req.body;
-  
-    const pacient = await verificarCredenciales(usuario, password);
-    if (pacient) {
-      req.session.isLoggedIn = true;
-      req.session.pacienteId = pacient.id;
-      req.session.pacienteNombre = pacient.nombre;
-      res.redirect('/mostrar');
-    } else {
-      res.render('pacientes/admin', { error: 'Credenciales incorrectas' });
-    }
-  });*/
-
   ruta.get("/logout", (req,res)=>{ 
     req.session=null;
     res.redirect("/login");
