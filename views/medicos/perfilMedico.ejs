@@ -6,15 +6,15 @@
     <div class="card-header animate__animated animate__pulse" style="background-image: linear-gradient(#1D21AA, #1D21AA); color: #ffffff;">
       <h1 style="font-size: 20px; text-align: center; margin-top: 10px;">BIENVENIDO DOCTOR</h1>
     </div>
-    <div >
+    <div>
       <div class="row">
         <div class="col-md-6">
           <img src="/images/<%= medico.foto %>" class="img-fluid" alt="Foto del medico" style="max-width: 300px; height: auto;">
           
           <div class="col-md-6">  
-            <a href="/editarMedico/<%= medico.id %>" class="btn animate__animated animate__rotateIn" style="font-size: 12px; color: #000000; background-color: white;  font-weight: bold; border-radius: 5px; padding: 10px;  width: 300px; text-align: center; display: inline-block;">Editar Información</a>
+            <a href="/editarMedico/<%= medico.id %>" class="btn animate__animated animate__rotateIn" style="font-size: 12px; color: #000000; background-color: white; font-weight: bold; border-radius: 5px; padding: 10px;  width: 300px; text-align: center; display: inline-block;">Editar Información</a>
 
-          <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 14px;">Nombre:</strong> <%= medico.nombre %></p>
+          <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 14px;">Nombre(s)</strong> <%= medico.nombre %></p>
           <p style="font-size: 15px;"><strong style="font-size: 14px;">Apellidos:</strong> <%= medico.apellidos %></p>
         </div>
         <div class="col-md-6">
