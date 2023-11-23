@@ -20,22 +20,15 @@ ruta.get('/perfilMedico', async (req, res) => {
     }
   });
 
-
+  
 ruta.get('/loginMedico', (req, res) => {
     res.render('medicos/loginMedico');
   });
-
-/*/ruta.post('/loginMedico', async (req, res) => {
-    var error = await mostrarMedicos(req.body);
-    res.redirect("/mostrarMedico");
-
-  });*/
 
   ruta.post('/loginMedico', async (req, res) => {
     const { usuario, password } = req.body;
   
     const med = await verificarCredenciales(usuario, password);
-    //console.log(pacient);
     if (med) {
       req.session.isLoggedIn = true;
       req.session.medicoId = med.id;
@@ -46,18 +39,48 @@ ruta.get('/loginMedico', (req, res) => {
     }
   });
 
+  ruta.get('/admin', async (req, res) => {
+    if (req.session.isLoggedIn) {
+      const medicoId = req.session.medicoId; 
+      const nombre = req.session.medicoNombre;
+      console.log(medicoId);
+      if (medicoId) {
+        const medico = await buscarMedicosPorID(medicoId);
+        console.log(medico);
+        res.render('medicos/admin', { medico });
+      } else {
+        res.redirect('/loginAdmin'); 
+      }
+    } else {
+      res.redirect('/loginAdmin'); 
+    }
+  });
+
+
+  ruta.get('/loginAdmin', (req, res) => {
+    res.render('medicos/LoginAdmin');
+  });
+
+  ruta.post('/loginAdmin', async (req, res) => {
+    const { usuario, password } = req.body;
+  
+    const med = await verificarCredenciales(usuario, password);
+    if (med) {
+      req.session.isLoggedIn = true;
+      req.session.medicoId = med.id;
+      req.session.medicoNombre = med.nombre;
+      res.redirect('/admin');
+    } else {
+      res.render('medicos/loginAdmin', { error: 'Credenciales incorrectas' });
+    }
+  });
+
+
   ruta.get("/logoutMed", (req,res)=>{ 
     req.session=null;
     res.redirect("/loginMedico");
   
   });
-
-
-  
-/*ruta.get("/mostrarMedico", async (req, res) => {
-    var medicos = await mostrarMedicos();
-    res.render("medicos/mostrarMedico", { medicos });
-});*/
 
 ruta.get("/mostrarMedico", async (req, res) => {
     try {
@@ -69,12 +92,6 @@ ruta.get("/mostrarMedico", async (req, res) => {
     }
   });
 
-
-  /*ruta.post('/loginMedico', async (req, res) => {
-    var error = await mostrarMedicos(req.body);
-    res.redirect("/medicos");
-
-  });*/
 
 ruta.get("/medicos",async(req,res)=>{
     var medicos = await mostrarMedicos(); 
@@ -91,8 +108,6 @@ ruta.post("/nuevomedico", subirImage(),async(req, res)=>{
     res.redirect("/loginMedico");
   
   });
-
- 
 
 ruta.get("/editarMedico/:id", async (req, res) => {
     var medico = await buscarMedicosPorID(req.params.id);
@@ -122,7 +137,6 @@ ruta.post("/editarMedico", subirImage(), async (req, res) => {
       res.status(500).send("Error al actualizar el medico");
     }
   });
-
 
   ruta.get("/borrarMedico/:id", async (req, res) => {
     try {

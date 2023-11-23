@@ -2,93 +2,29 @@
 <%- include ("../templates/menu")%>
 
 <div class="container" style="padding-top: 20px;">
-  <div class="card">
-    <div class="card-header" style="background-image: linear-gradient(#1D21AA, #1D21AA); color: #ffffff;">
-      <h1 style="font-size: 20px; text-align: center; margin-top: 10px;" >BIENVENIDO DOCTOR</h1>
+  <div>
+    <div class="card-header animate__animated animate__pulse" style="background-image: linear-gradient(#1D21AA, #1D21AA); color: #ffffff;">
+      <h1 style="font-size: 20px; text-align: center; margin-top: 10px;">BIENVENIDO DOCTOR</h1>
     </div>
-    <div class="card-body" style="background-image: linear-gradient(white,#1d22aa1f); box-shadow: #546223;">
+    <div >
       <div class="row">
         <div class="col-md-6">
-          <img src="/images/<%= medico.foto %>" class="img-fluid" alt="Foto del medico" style="max-width: 200px; height: auto;">
+          <img src="/images/<%= medico.foto %>" class="img-fluid" alt="Foto del medico" style="max-width: 300px; height: auto;">
           
           <div class="col-md-6">  
-          <a href="/editarMedico/<%= medico.id %>"  class="btn" style="font-size: 10px; color: #1D21AA; background-color: yellow; font-weight: bold;" >Editar foto de perfil</a></div>
+            <a href="/editarMedico/<%= medico.id %>" class="btn animate__animated animate__rotateIn" style="font-size: 12px; color: #000000; background-color: white;  font-weight: bold; border-radius: 5px; padding: 10px;  width: 300px; text-align: center; display: inline-block;">Editar Información</a>
 
-          <p style="font-size: 15px; margin-top: 20px;"><strong>Nombre:</strong> <%= medico.nombre %></p>
-          <p style="font-size: 15px;"><strong>Apellidos:</strong> <%= medico.apellidos %></p>
+          <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 14px;">Nombre:</strong> <%= medico.nombre %></p>
+          <p style="font-size: 15px;"><strong style="font-size: 14px;">Apellidos:</strong> <%= medico.apellidos %></p>
         </div>
         <div class="col-md-6">
-          <div id="wrapper" style="text-align: center">
-            <div id="calendario">
-              <header>
-            <h2>Noviembre 2023</h2>
-                
-              </header>
-            <table>
-              <tr>
-                <td>L</td>
-                <td>M</td>
-                <td>Mi</td>
-                <td>J</td>
-                <td>V</td>
-                <td>S</td>
-                <td>D</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td><input type="button" value="1" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="2" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="3" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="4" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="5" onClick="computadora(this.value)"></td>
-              </tr>
-              <tr>
-                <td><input type="button" value="6" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="7" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="8" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="9" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="10" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="11" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="12" onClick="computadora(this.value)"></td>
-              </tr>
-              <tr>
-                <td><input type="button" value="13" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="14" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="15" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="16" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="17" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="18" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="19" onClick="computadora(this.value)"></td>
-              </tr>
-              <tr>
-                <td><input type="button" value="20" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="21" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="22" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="23" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="24" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="25" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="26" onClick="computadora(this.value)"></td>
-              </tr>
-              <tr>
-                <td><input type="button" value="27" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="28" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="29" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="30" onClick="computadora(this.value)"></td>
-                <td><input type="button" value="31" onClick="computadora(this.value)"></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </table>
-            </div>
-            <link rel="stylesheet" type="text/css" href="/style.css">
-            <script type="text/javascript" src="/script.js"></script>
-        </div>
+
+
       </div>
       <div class="row mt-3">
         <div class="col-md-6">
-          <a href="/logoutMed" class="btn" style="color: #ffffff; font-size: 15px; font-weight: bold; background-color: #1D21AA;" >Cerrar Sesión</a>
-          <a  href="/borrarMedico/<%= medico.id %>"  class="btn"  style="color: #ffffff; font-size: 15px; font-weight: bold; background-color: red;">Borrar cuenta</a>
+          <a href="/logoutMed" class="btn animate__animated animate__fadeInDown" style="color: #ffffff; font-size: 14px; font-weight: bold; background-color: #1D21AA; margin-top: 5px; width: 300px;">Cerrar Sesión</a>
+          <a  href="/borrarMedico/<%= medico.id %>"  class="btn animate__animated animate__fadeInDown" style="color: #ffffff; font-size: 14px; font-weight: bold; background-color: red;margin-top: 15px; width: 300px; ">Borrar Cuenta</a>
         </div>
         <div class="col-md-6">
           
@@ -100,5 +36,7 @@
 </div>
 <div class="color-bar" style="height: 80px; margin-top: 100px;">
 </div>
+
+
 
 <%- include ("../templates/pie")%>

@@ -11,12 +11,10 @@ async function verificarCredenciales(usuario, password) {
         }
         var usuarioEncontrado = querySnapshot.docs[0].data();
         usuarioEncontrado.id=  querySnapshot.docs[0].id;
-        //console.log("kljsgkldf");
-        //console.log(usuarioEncontrado);
         if (usuarioEncontrado.password !== undefined && usuarioEncontrado.salt !== undefined) {
-            //console.log(password);
+
             const contraseñaValida = await validarPassword(password, usuarioEncontrado.password, usuarioEncontrado.salt);
-            //console.log(contraseñaValida);
+
             if (contraseñaValida) {
                 return usuarioEncontrado;
             } else {
@@ -31,8 +29,6 @@ async function verificarCredenciales(usuario, password) {
     }
 }
 
-
-
 async function mostrarMedicos(){
     var meds=[];
     try{
@@ -41,7 +37,7 @@ async function mostrarMedicos(){
         medicos.forEach(medico => {
             var med=new Medico(medico.id, medico.data());
             if (med.bandera === 0){
-                meds.push(med.obtenerDatosM());
+                meds.push(med.obtenerDatosM);
               
             }
             
@@ -80,27 +76,6 @@ async function buscarMedicosPorID(id){
 
 }
 
-/*async function nuevoMedico(datos){
-    var med=new Medico(null, datos);
-    var error=1;
-    if (med.bandera === 0){
-    try{
-        console.log(med.obtenerDatosM());
-        await conexion.doc().set(med.obtenerDatosM());
-        console.log("Medico insertado a la BD");
-        error=0;
-    }
-
-    catch(err){
-        console.log("Error al capturar el nuevo medico"+err);
-
-    }
-
-  }
-  return error;
-
-}*/
-
 async function nuevoMedico(datos){
     var {hash, salt}=encriptarPassword(datos.password); 
     datos.password=hash; 
@@ -123,25 +98,6 @@ async function nuevoMedico(datos){
   return error;
 
 }
-
-/*async function modificarMedico(datos){
-    var med=new Medico(datos.id,datos)
-    var error=1;
-    if (med.bandera === 0){
-        try{
-            await conexion.doc(med.id).set(med.obtenerDatosM());
-            console.log("Medico actualizado");
-            error=0;
-
-        }
-        catch(err){
-            console.log("Error al modificar al medico"+err);
-
-        }
-    }
-    return error;
-
-}*/
 
 async function modificarMedico(datos) {
     var error = 1;
@@ -184,22 +140,6 @@ async function modificarMedico(datos) {
 
     return error;
 }
-
-
-
-/*async function borrarMedico(id){
-    try{
-        await conexion.doc(id).delete();
-        console.log("Medico borrado");
-
-    }
-
-    catch(err){
-        console.log("Error al borrar al medico" + err);
-
-    }
-
-}*/
 
 async function borrarMedico(id) {
     var error = 1;

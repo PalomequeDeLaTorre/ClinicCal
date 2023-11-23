@@ -1,13 +1,13 @@
 <%- include ("../templates/encabezado")%>
 <%- include ("../templates/menu")%>
 <div class="container mt-5">
-    <form action="/loginMedico" method="post">
+    <form action="/loginAdmin" method="post">
         <div class="card" style="background-color: #E2F0D9; border: 2px solid #E2F0D9; border-radius: 20px; box-shadow: 0px 0px 20px #546223; max-width: 400px; margin: 0 auto;">
             <div class="image-container text-center animate__animated animate__headShake">
                 <img src="/LogoFormClinicCal.ico" alt="Imagen" style="max-width: 200%; height: auto;">
             </div>
             <div class="card-header" style="background-image: linear-gradient(#546223, #546223d5); color: #ffffff; border-radius: 10px 10px 0px 0px;">
-                <h1 style="font-size: 20px; padding: 15px; text-align: center;">Iniciar Sesión</h1>
+                <h1 style="font-size: 20px; padding: 15px; text-align: center;">Administrador</h1>
             </div>
             <div class="card-body">
 
@@ -25,13 +25,8 @@
             </button>
         </div>
     </form>
-    <div class="text-center mt-3">
-        <p style="color: #ffffff; font-size: 14px;">Eres médico? <a href="/nuevomedico" style="color: #1D21AA; text-decoration: none;">Regístrate</a></p>
-        
-    </div>
     <div class="text-center" style="font-size: 14px; margin-top: -10px;">
-        <p style="color: #ffffff; padding-top: 10px;">"Acceso solo para profesionales de la salud."</p>
-        <p style="color: #ffffff;font-size: 14px; color: #1D21AA;"><a href="/loginAdmin" style="color: #1D21AA; text-decoration: none;">Administrador</a></p>
+        <p style="color: #ffffff; padding-top: 30px;">"Solo acceso autorizado"</p>
     </div>
     <div class="text-center mt-3">
         <p> <a href="/" style="color: #ffee00; text-decoration: none; font-size: 20px;">🢀regresar</a></p>
@@ -42,4 +37,3 @@
   </div>
   
 <%- include ("../templates/pie")%>
-
