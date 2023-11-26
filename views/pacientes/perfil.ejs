@@ -12,24 +12,52 @@
           <img src="/images/<%= paciente.foto %>" class="img-fluid" alt="Foto del paciente" style="max-width: 300px; height: auto;">
           
           <div class="col-md-6">  
-          <a href="/editarPaciente/<%= paciente.id %>"  class="btn animate__animated animate__rotateIn" style="font-size: 12px; color: #000000; background-color: white;  font-weight: bold; border-radius: 5px; padding: 10px;  width: 300px; text-align: center; display: inline-block;">Editar foto de perfil</a></div>
+          <a href="/editarPaciente/<%= paciente.id %>"  class="btn animate__animated animate__rotateIn" style="font-size: 12px; color: #000000; background-color: white;  font-weight: bold; border-radius: 5px; padding: 10px;  width: 300px; text-align: center; display: inline-block;">Editar Información</a></div>
 
-          <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 14px;">Nombre(s):</strong> <%= paciente.nombre %></p>
-          <p style="font-size: 15px;"><strong style="font-size: 14px;">Apellidos:</strong> <%= paciente.apellidos %></p>
+          <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 15px;">Nombre(s):</strong> <%= paciente.nombre %></p>
+          <p style="font-size: 15px;"><strong style="font-size: 15px;">Apellidos:</strong> <%= paciente.apellidos %></p>
         </div>
-        <div class="col-md-6">
-         
-          
+        <div class="col-md-6" style="background-color: #333; max-width: 557px;">
+          <h1 style="font-size: 15px; text-align: center; margin-top: 10px; color: #ffffff;" >Agendar Cita</h1>
+            
+            <form action="/agendar" method="post">
+                <div class="form-group" style="max-width: 557px; ">
+                    <label for="fecha" style="margin-top: 0px; font-size: 14px; color: #ffffff;">Fecha:</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha" required onchange="actualizarHorasDisponibles()">
+                </div>
+                <div class="form-group" style="max-width: 557px;">
+                  <label for="hora" style="margin-top: 5px; font-size: 14px; color: #ffffff;">Hora:</label>
+                  <select class="form-control" id="hora" name="hora" required onchange="actualizarHorasDisponibles()">
+                      <option value="" disabled selected>Selecciona una hora</option>
+                      <!-- Las opciones de hora ahora tienen clases según su disponibilidad -->
+                      <% const horasDisponibles = ["09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "01:00", "01:30", "02:00", "02:30", "03:00"]; %>
+                      <% horasDisponibles.forEach(hora => { %>
+                          <option value="<%= hora %>" class="hora-option"><%= hora %></option>
+                      <% }); %>
+                  </select>
+              </div>
+                <div class="form-group"style="max-width: 557px;" >
+                    <label for="nombre" style="margin-top: 5px; font-size: 14px; color: #ffffff;">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group"style="max-width: 557px;" >
+                    <label for="edad" style="margin-top: 5px; font-size: 14px; color: #ffffff;">Edad:</label>
+                    <input type="number" class="form-control" id="edad" name="edad" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 530px; margin-top: 10px;" >Agendar Cita</button>
+            </form>
+            <a href="https://ClinicCal.as.me/" target="_blank" class="btn btn-info mb-3" style="margin-top: 10px; color: #ffffff;" >Agenda Directa</a>
+        </div>
+  
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-md-6">
-          <a href="/logout" class="btn animate__animated animate__fadeInDown" style="color: #ffffff; font-size: 14px; font-weight: bold; background-color: #1D21AA; margin-top: 5px; width: 300px;">Cerrar Sesión</a>
-          <a  href="/borrarPaciente/<%= paciente.id %>"  class="btn animate__animated animate__fadeInDown" style="color: #ffffff; font-size: 14px; font-weight: bold; background-color: red;margin-top: 15px; width: 300px;">Borrar cuenta</a>
+          <a href="/logout" class="btn animate__animated animate__fadeInDown" style="color: #ffffff; font-size: 14px; font-weight: bold; background-color: #1D21AA; margin-top: -200px; width: 300px;">Cerrar Sesión</a>
+          <a  href="/borrarPaciente/<%= paciente.id %>"  class="btn animate__animated animate__fadeInDown" style="color: #ffffff; font-size: 14px; font-weight: bold; background-color: red;margin-top: -150px; width: 300px;">Borrar cuenta</a>
         </div>
         <div class="col-md-6">
-          
-
+            
         </div>
       </div>
     </div>
