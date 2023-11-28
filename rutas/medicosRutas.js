@@ -1,6 +1,6 @@
 var ruta = require("express").Router();
 var subirImage = require("../middlewares/subirImage");
-var { mostrarMedicos, nuevoMedico, modificarMedico, buscarMedicosPorID, borrarMedico, verificarCredenciales } = require("../bd/medicosBD");
+var { mostrarMedicos, nuevoMedico, modificarMedico, buscarMedicosPorID, borrarMedico, verificarCredenciales, agendarCita } = require("../bd/medicosBD");
 const fs = require('fs').promises;
 
 ruta.get('/perfilMedico', async (req, res) => {
@@ -11,7 +11,10 @@ ruta.get('/perfilMedico', async (req, res) => {
       if (medicoId) {
         const medico = await buscarMedicosPorID(medicoId);
         console.log(medico);
-        res.render('medicos/perfilMedico', { medico });
+
+        const datosPaciente = req.session.datosPaciente || {};
+
+        res.render('medicos/perfilMedico', { medico, datosPaciente });
       } else {
         res.redirect('/loginMedico'); 
       }
@@ -152,6 +155,20 @@ ruta.post("/editarMedico", subirImage(), async (req, res) => {
       res.status(500).send("Error al borrar la foto o medico");
     }
   });
+
+  ruta.get('/borrarDatosPaciente', async (req, res) => {
+    try {
+      // Borrar los datos del paciente de la sesión
+      req.session.datosPaciente = null;
+  
+      // Redirigir a la página del perfil del médico
+      res.redirect('/perfilMedico');
+    } catch (error) {
+      console.error('Error al borrar datos del paciente:', error);
+      res.status(500).send('Error al borrar datos del paciente');
+    }
+  });
+  
 
 
 
