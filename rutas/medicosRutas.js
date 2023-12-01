@@ -32,20 +32,7 @@ ruta.get('/loginMedico', (req, res) => {
     res.render('medicos/loginMedico');
   });
 
-  /*ruta.post('/loginMedico', async (req, res) => {
-    const { usuario, password } = req.body;
-  
-    const med = await verificarCredenciales(usuario, password);
-    if (med) {
-      req.session.isLoggedIn = true;
-      req.session.medicoId = med.id;
-      req.session.medicoNombre = med.nombre;
-      res.redirect('/perfilMedico');
-    } else {
-      res.render('medicos/loginMedico', { error: 'Credenciales incorrectas' });
-    }
-  });*/
-
+ 
   ruta.post('/loginMedico', async (req, res) => {
     const { usuario, password } = req.body;
 
@@ -55,7 +42,6 @@ ruta.get('/loginMedico', (req, res) => {
         req.session.medicoId = med.id;
         req.session.medicoNombre = med.nombre;
 
-        // Redirigir a la sección de admin si el médico es admin
         if (med.admin) {
             res.redirect('/admin');
         } else {
@@ -77,32 +63,12 @@ ruta.get('/loginMedico', (req, res) => {
         console.log(medico);
         res.render('medicos/admin', { medico });
       } else {
-        res.redirect('/loginAdmin'); 
+        res.redirect('/loginMedico'); 
       }
     } else {
-      res.redirect('/loginAdmin'); 
+      res.redirect('/loginMedico'); 
     }
   });
-
-
-  ruta.get('/loginAdmin', (req, res) => {
-    res.render('medicos/loginAdmin');
-  });
-
-  ruta.post('/loginAdmin', async (req, res) => {
-    const { usuario, password } = req.body;
-  
-    const med = await verificarCredenciales(usuario, password);
-    if (med) {
-      req.session.isLoggedIn = true;
-      req.session.medicoId = med.id;
-      req.session.medicoNombre = med.nombre;
-      res.redirect('/admin');
-    } else {
-      res.render('medicos/loginAdmin', { error: 'Credenciales incorrectas' });
-    }
-  });
-
 
   ruta.get("/logoutMed", (req,res)=>{ 
     req.session=null;
@@ -112,7 +78,7 @@ ruta.get('/loginMedico', (req, res) => {
 
   ruta.get("/logoutAdm", (req,res)=>{ 
     req.session=null;
-    res.redirect("/loginAdmin");
+    res.redirect("/loginMedico");
   
   });
 
