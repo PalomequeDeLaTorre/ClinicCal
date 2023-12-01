@@ -12,6 +12,7 @@ async function mostrarCita() {
                 cits.push(cit.obtenerDatosC);
             }
         });
+        
     } catch (err) {
         console.log("Error al recuperar citas de la base de datos" + err);
     }

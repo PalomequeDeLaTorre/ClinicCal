@@ -17,18 +17,23 @@
           <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 15px;">Nombre(s):</strong> <%= medico.nombre %></p>
           <p style="font-size: 15px;"><strong style="font-size: 15px;">Apellidos:</strong> <%= medico.apellidos %></p>
         </div>
-        <div class="col-md-6">
-          <h1 style="font-size: 15px; text-align: center; margin-top: 10px; color: #1D21AA; font-weight: bold">Información del Paciente</h1>
-            <div class="card-body">
-              <% citas.forEach(cita => { %>
-                <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 15px;">Nombre(s):</strong> <%= cita.nombre %></p>
-                <p style="font-size: 15px;"><strong style="font-size: 15px;">Apellidos:</strong> <%= cita.apellidos %></p>
-                <p style="font-size: 15px;"><strong style="font-size: 15px;">Edad:</strong> <%= cita.edad %></p>
-                <p style="font-size: 15px;"><strong style="font-size: 15px;">Fecha:</strong> <%= cita.fecha %></p>
-                <p style="font-size: 15px;"><strong style="font-size: 15px;">Hora:</strong> <%= cita.hora %></p>
-              <% }); %>
-            </div>
-      </div>
+
+        <div class="col-md-6" style="background-color: #ffffff; width: 700px; max-width: 800px; float: left; margin-left: 415px; margin-top: -440px;">
+          <h1 style="font-size: 15px; text-align: center; margin-top: 10px; color: #000000; font-weight: bold">Citas</h1>
+          <div class="card-body">
+            <% citas.forEach(cita => { %>
+              <div style="border: 1px solid #ddd; padding: 10px; margin-top: 10px;">
+                <p style="font-size: 13px;"><strong style="font-size: 13px;">Nombre(s):</strong> <%= cita.nombre %></p>
+                <p style="font-size: 13px;"><strong style="font-size: 13px;">Apellidos:</strong> <%= cita.apellidos %></p>
+                <p style="font-size: 13px;"><strong style="font-size: 13px;">Edad:</strong> <%= cita.edad %></p>
+                <p style="font-size: 13px;"><strong style="font-size: 13px;">Fecha:</strong> <%= cita.fecha %></p>
+                <p style="font-size: 13px;"><strong style="font-size: 13px;">Hora:</strong> <%= cita.hora %></p>
+                <a  href="/borrarCita/<%= cita.id %>"  class="btn animate__animated animate__fadeInDown" style="color: #ffffff; font-size: 12px; font-weight: bold; background-color: rgb(51, 255, 0);margin-top: -10px; width: 150px;">Cita Finalizada</a></div>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+        
         </div>
       </div>
       <div class="row mt-3">

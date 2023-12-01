@@ -13,7 +13,7 @@ ruta.get('/perfilMedico', async (req, res) => {
 
       if (medicoId) {
         const medico = await buscarMedicosPorID(medicoId);
-        const citas = await mostrarCita(); // Fetch citas data
+        const citas = await mostrarCita(); 
         res.render('medicos/perfilMedico', { medico, citas });
       } else {
         res.redirect('/loginMedico');
@@ -22,8 +22,8 @@ ruta.get('/perfilMedico', async (req, res) => {
       res.redirect('/loginMedico');
     }
   } catch (error) {
-    console.error('Error fetching citas:', error);
-    res.status(500).send('Error fetching citas');
+    console.error('Error citas:', error);
+    res.status(500).send('Error citas');
   }
 });
 
