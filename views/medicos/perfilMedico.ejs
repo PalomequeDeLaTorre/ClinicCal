@@ -17,14 +17,18 @@
           <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 15px;">Nombre(s):</strong> <%= medico.nombre %></p>
           <p style="font-size: 15px;"><strong style="font-size: 15px;">Apellidos:</strong> <%= medico.apellidos %></p>
         </div>
-          <div class="col-md-6">
-            <p style="font-size: 15px;"><strong style="font-size: 15px;">Nombre(s) del Paciente:</strong> <%= datosPaciente.nombre %></p>
-            <p style="font-size: 15px;"><strong style="font-size: 15px;">Apellidos del Paciente:</strong> <%= datosPaciente.apellidos %></p>
-            <p style="font-size: 15px;"><strong style="font-size: 15px;">Edad del Paciente:</strong> <%= datosPaciente.edad %></p>
-            <p style="font-size: 15px;"><strong style="font-size: 15px;">Otro Campo 1:</strong> <%= datosPaciente.otroCampo1 %></p>
-            <p style="font-size: 15px;"><strong style="font-size: 15px;">Otro Campo 2:</strong> <%= datosPaciente.otroCampo2 %></p>
-            <!-- ... -->
-            <a href="/borrarDatosPaciente" class="btn btn-danger" onclick="return confirm('¿Estás seguro que deseas borrar los datos del paciente?')">Borrar Datos</a>
+        <div class="col-md-6">
+          <h1 style="font-size: 15px; text-align: center; margin-top: 10px; color: #1D21AA; font-weight: bold">Información del Paciente</h1>
+            <div class="card-body">
+              <% citas.forEach(cita => { %>
+                <p style="font-size: 15px; margin-top: 20px;"><strong style="font-size: 15px;">Nombre(s):</strong> <%= cita.nombre %></p>
+                <p style="font-size: 15px;"><strong style="font-size: 15px;">Apellidos:</strong> <%= cita.apellidos %></p>
+                <p style="font-size: 15px;"><strong style="font-size: 15px;">Edad:</strong> <%= cita.edad %></p>
+                <p style="font-size: 15px;"><strong style="font-size: 15px;">Fecha:</strong> <%= cita.fecha %></p>
+                <p style="font-size: 15px;"><strong style="font-size: 15px;">Hora:</strong> <%= cita.hora %></p>
+              <% }); %>
+            </div>
+      </div>
         </div>
       </div>
       <div class="row mt-3">
@@ -33,7 +37,7 @@
           <a  href="/borrarMedico/<%= medico.id %>"  class="btn animate__animated animate__fadeInDown" style="color: #ffffff; font-size: 14px; font-weight: bold; background-color: red;margin-top: 15px; width: 300px;">Borrar Cuenta</a>
         </div>
         <div class="col-md-6">
-       
+         
         </div>
       </div>
     </div>

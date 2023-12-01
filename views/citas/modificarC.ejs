@@ -1,0 +1,19 @@
+<%- include ("../templates/encabezado")%>
+<%- include ("../templates/menu")%>
+<div class="container mt-5">
+    <form action="/editarCita" method="post" enctype="multipart/form-data">
+        <div class="card">
+            <div class="card-header">
+                <h1>Modificar Cita</h1>
+            </div>
+                <div class="card-body">
+                    <input type="hidden" name="id" id="id" value="<%= cit.id%>">
+                    <input class="form-control mb-3" type="text" value="<%= cit.nombre%>" name="nombre" id="nombre" placeholder="Nombre" autofocus>
+                    <input class="form-control mb-3" type="text" value="<%= cit.apellidos%>" name="apellidos" id="apellidos" placeholder="Apellidos">
+            
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="form-control btn btn-primary">Modificar cita</button>
+                </div>
+
+<%- include ("../templates/pie")%>

@@ -79,6 +79,7 @@ class Medico{
                 foto: this.foto,
                 salt: this.salt,
             };
+            
         else {
             return {
                 nombre: this.nombre,

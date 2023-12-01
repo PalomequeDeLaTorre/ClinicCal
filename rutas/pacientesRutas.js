@@ -3,6 +3,7 @@ var subirImage = require("../middlewares/subirImage");
 var {mostrarPacientes, nuevoPaciente, modificarPaciente, buscarPacientesPorID, borrarPaciente, verificarCredenciales }=require("../bd/pacientesBD");
 const fs = require('fs').promises;
 
+
 ruta.get('/', (req, res) => {
     res.render('secciones/inicio');
 });
@@ -12,6 +13,7 @@ ruta.get('/perfil', async (req, res) => {
     const pacienteId = req.session.pacienteId; 
     const nombre = req.session.pacienteNombre;
     console.log(pacienteId);
+
     if (pacienteId) {
       const paciente = await buscarPacientesPorID(pacienteId);
       console.log(paciente);
@@ -128,24 +130,6 @@ ruta.get("/borrarPaciente/:id", async (req, res) => {
   } catch (error) {
     console.error('Error al borrar la foto o paciente:', error);
     res.status(500).send("Error al borrar la foto o paciente");
-  }
-});
-
-ruta.post('/guardarDatosPerfil', async (req, res) => {
-  try {
-    const pacienteId = req.session.pacienteId;
-
-    // Obtén los datos del formulario de Perfil.ejs
-    const { nombre, apellidos, edad } = req.body;
-
-    // Guarda los datos en la sesión del paciente
-    req.session.datosPaciente = { nombre, apellidos, edad };
-
-    // Redirige a la página del perfil del médico
-    res.redirect('/perfilMedico');
-  } catch (error) {
-    console.error('Error al guardar datos del perfil:', error);
-    res.status(500).send('Error al guardar datos del perfil');
   }
 });
 

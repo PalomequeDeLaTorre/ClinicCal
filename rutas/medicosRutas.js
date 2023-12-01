@@ -1,27 +1,32 @@
 var ruta = require("express").Router();
 var subirImage = require("../middlewares/subirImage");
-var { mostrarMedicos, nuevoMedico, modificarMedico, buscarMedicosPorID, borrarMedico, verificarCredenciales, agendarCita } = require("../bd/medicosBD");
+var { mostrarCita } = require("../bd/citasBD");
+var { mostrarMedicos, nuevoMedico, modificarMedico, buscarMedicosPorID, borrarMedico, verificarCredenciales } = require("../bd/medicosBD");
 const fs = require('fs').promises;
 
+
 ruta.get('/perfilMedico', async (req, res) => {
+  try {
     if (req.session.isLoggedIn) {
-      const medicoId = req.session.medicoId; 
+      const medicoId = req.session.medicoId;
       const nombre = req.session.medicoNombre;
-      console.log(medicoId);
+
       if (medicoId) {
         const medico = await buscarMedicosPorID(medicoId);
-        console.log(medico);
-
-        const datosPaciente = req.session.datosPaciente || {};
-
-        res.render('medicos/perfilMedico', { medico, datosPaciente });
+        const citas = await mostrarCita(); // Fetch citas data
+        res.render('medicos/perfilMedico', { medico, citas });
       } else {
-        res.redirect('/loginMedico'); 
+        res.redirect('/loginMedico');
       }
     } else {
-      res.redirect('/loginMedico'); 
+      res.redirect('/loginMedico');
     }
-  });
+  } catch (error) {
+    console.error('Error fetching citas:', error);
+    res.status(500).send('Error fetching citas');
+  }
+});
+
 
 ruta.get('/loginMedico', (req, res) => {
     res.render('medicos/loginMedico');
@@ -81,6 +86,12 @@ ruta.get('/loginMedico', (req, res) => {
   ruta.get("/logoutMed", (req,res)=>{ 
     req.session=null;
     res.redirect("/loginMedico");
+  
+  });
+
+  ruta.get("/logoutAdm", (req,res)=>{ 
+    req.session=null;
+    res.redirect("/loginAdmin");
   
   });
 
@@ -156,21 +167,6 @@ ruta.post("/editarMedico", subirImage(), async (req, res) => {
     }
   });
 
-  ruta.get('/borrarDatosPaciente', async (req, res) => {
-    try {
-      // Borrar los datos del paciente de la sesión
-      req.session.datosPaciente = null;
   
-      // Redirigir a la página del perfil del médico
-      res.redirect('/perfilMedico');
-    } catch (error) {
-      console.error('Error al borrar datos del paciente:', error);
-      res.status(500).send('Error al borrar datos del paciente');
-    }
-  });
-  
-
-
-
 
 module.exports = ruta;

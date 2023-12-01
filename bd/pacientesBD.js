@@ -129,11 +129,11 @@ async function modificarPaciente(datos) {
 
             if (pacient.bandera === 0) {
                 await conexion.doc(pacient.id).set(pacient.obtenerDatos);
-                console.log("Usuario actualizado");
+                console.log("Paciente actualizado");
                 error = 0;
             }
         } catch (err) {
-            console.log("Error al modificar el usuario" + err);
+            console.log("Error al modificar el paciente" + err);
         }
     }
 
@@ -157,15 +157,12 @@ async function borrarPaciente(id) {
             console.log("Usuario borrado");
             error = 0;
         } catch (err) {
-            console.log("Error al borrar el usuario" + err);
+            console.log("Error al borrar el paciente" + err);
         }
     }
 
     return error;
 }
-
-
-
 
 
 module.exports={

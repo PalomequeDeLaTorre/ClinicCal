@@ -3,6 +3,7 @@ var {encriptarPassword, validarPassword}=require("../middlewares/passwordEncrypt
 var Medico=require("../modelos/Medico");
 const bcrypt = require('bcrypt');
 
+
 async function verificarCredenciales(usuario, password) { 
     try {
         const querySnapshot = await conexion.where("usuario", "==", usuario).get();
@@ -166,7 +167,7 @@ async function borrarMedico(id) {
 }
 
 
-
+  
 module.exports={
     mostrarMedicos,
     buscarMedicosPorID,
@@ -174,4 +175,5 @@ module.exports={
     modificarMedico,
     borrarMedico,
     verificarCredenciales,
+   
 };
