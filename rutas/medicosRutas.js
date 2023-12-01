@@ -65,7 +65,7 @@ ruta.get('/loginMedico', (req, res) => {
 
 
   ruta.get('/loginAdmin', (req, res) => {
-    res.render('medicos/LoginAdmin');
+    res.render('medicos/loginAdmin');
   });
 
   ruta.post('/loginAdmin', async (req, res) => {
