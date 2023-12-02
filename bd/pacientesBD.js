@@ -2,6 +2,9 @@ var conexion=require("./conexion").conexionPacientes;
 var {encriptarPassword, validarPassword}=require("../middlewares/passwordEncryption");
 var Paciente=require("../modelos/Paciente");
 const bcrypt = require('bcrypt');
+const fs = require('fs').promises;
+const path = require('path');
+
 
 async function verificarCredenciales(usuario, password) { 
     try {
@@ -99,70 +102,84 @@ async function nuevoPaciente(datos){
 }
 
 async function modificarPaciente(datos) {
-    var error = 1;
-    var respuestaBuscar = await buscarPacientesPorID(datos.id);
+    try {
+        const respuestaBuscar = await buscarPacientesPorID(datos.id);
 
-    if (respuestaBuscar !== undefined) {
-        try {
-            
+        if (respuestaBuscar !== undefined) {
             if (datos.password !== "") {
-                var { salt, hash } = encriptarPassword(datos.password);
+                const { salt, hash } = encriptarPassword(datos.password);
                 datos.password = hash;
                 datos.salt = salt;
             } else {
-              
                 datos.password = respuestaBuscar.password;
                 datos.salt = respuestaBuscar.salt;
             }
 
             if (datos.foto && datos.foto !== respuestaBuscar.foto) {
-                
                 if (respuestaBuscar.foto) {
-                    await fs.unlink(`./web/images/${respuestaBuscar.foto}`);
+                    const filePath = path.normalize(`./web/images/${respuestaBuscar.foto}`);
+
+                    try {
+                        await fs.unlink(filePath);
+                        console.log(`Archivo ${respuestaBuscar.foto} eliminado`);
+                    } catch (unlinkError) {
+                        console.log(`Error al intentar eliminar ${respuestaBuscar.foto}: ${unlinkError}`);
+                    }
                 }
             } else {
-            
                 datos.foto = respuestaBuscar.foto;
             }
 
-            var pacient = new Paciente(datos.id, datos);
+            const pacient = new Paciente(datos.id, datos);
 
             if (pacient.bandera === 0) {
                 await conexion.doc(pacient.id).set(pacient.obtenerDatos);
                 console.log("Paciente actualizado");
-                error = 0;
+                return 0; 
+            } else {
+                console.log("Error al modificar el paciente: Datos inválidos");
+                return 1; 
             }
-        } catch (err) {
-            console.log("Error al modificar el paciente" + err);
+        } else {
+            console.log("No se encontró el paciente a modificar");
+            return 1; 
         }
+    } catch (err) {
+        console.log("Error al modificar el paciente: " + err);
+        return 1; 
     }
-
-    return error;
 }
-
 
 async function borrarPaciente(id) {
-    var error = 1;
-    var pacient = await buscarPacientesPorID(id);
+    try {
+        const pacient = await buscarPacientesPorID(id);
 
-    if (pacient !== undefined) {
-        try {
-            
+        if (pacient !== undefined) {
             if (pacient.foto) {
-                await fs.unlink(`./web/images/${pacient.foto}`);
+                const filePath = path.normalize(`./web/images/${pacient.foto}`);
+
+                try {
+                    await fs.unlink(filePath);
+                    console.log(`Archivo ${pacient.foto} eliminado`);
+                } catch (unlinkError) {
+                    console.log(`Error al intentar eliminar ${pacient.foto}: ${unlinkError}`);
+                }
             }
 
-         
             await conexion.doc(id).delete();
-            console.log("Usuario borrado");
-            error = 0;
-        } catch (err) {
-            console.log("Error al borrar el paciente" + err);
-        }
-    }
+            console.log("Paciente borrado");
 
-    return error;
+            return 0;
+        } else {
+            console.log("No se encontró el paciente a borrar");
+            return 1; 
+        }
+    } catch (err) {
+        console.log("Error al borrar el paciente: " + err);
+        return 1; 
+    }
 }
+
 
 
 module.exports={

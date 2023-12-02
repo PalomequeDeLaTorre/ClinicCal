@@ -2,6 +2,8 @@ var conexion=require("./conexion").conexionMedicos;
 var {encriptarPassword, validarPassword}=require("../middlewares/passwordEncryption");
 var Medico=require("../modelos/Medico");
 const bcrypt = require('bcrypt');
+const fs = require('fs').promises;
+const path = require('path');
 
 
 async function verificarCredenciales(usuario, password) { 
@@ -101,70 +103,90 @@ async function nuevoMedico(datos){
 
 }
 
-async function modificarMedico(datos) {
-    var error = 1;
-    var respuestaBuscar = await buscarMedicosPorID(datos.id);
 
-    if (respuestaBuscar !== undefined) {
-        try {
-            
+
+async function modificarMedico(datos) {
+    try {
+        const respuestaBuscar = await buscarMedicosPorID(datos.id);
+
+        if (respuestaBuscar !== undefined) {
             if (datos.password !== "") {
-                var { salt, hash } = encriptarPassword(datos.password);
+                const { salt, hash } = encriptarPassword(datos.password);
                 datos.password = hash;
                 datos.salt = salt;
             } else {
-              
                 datos.password = respuestaBuscar.password;
                 datos.salt = respuestaBuscar.salt;
             }
 
             if (datos.foto && datos.foto !== respuestaBuscar.foto) {
-                
                 if (respuestaBuscar.foto) {
-                    await fs.unlink(`./web/images/${respuestaBuscar.foto}`);
+                    const filePath = path.normalize(`./web/images/${respuestaBuscar.foto}`);
+
+                    try {
+                        await fs.unlink(filePath);
+                        console.log(`Archivo ${respuestaBuscar.foto} eliminado`);
+                    } catch (unlinkError) {
+                        console.log(`Error al intentar eliminar ${respuestaBuscar.foto}: ${unlinkError}`);
+                    }
                 }
             } else {
-            
                 datos.foto = respuestaBuscar.foto;
             }
 
-            var med = new Medico(datos.id, datos);
-
+            const med = new Medico(datos.id, datos);
+            
             if (med.bandera === 0) {
                 await conexion.doc(med.id).set(med.obtenerDatosM);
                 console.log("Medico actualizado");
-                error = 0;
+                return 0; 
+            } else {
+                console.log("Error al modificar el médico: Datos inválidos");
+                return 1; 
             }
-        } catch (err) {
-            console.log("Error al modificar el medico" + err);
+        } else {
+            console.log("No se encontró el médico a modificar");
+            return 1; 
         }
+    } catch (err) {
+        console.log("Error al modificar el médico: " + err);
+        return 1; 
     }
-
-    return error;
 }
+
+
 
 async function borrarMedico(id) {
-    var error = 1;
-    var med = await buscarMedicosPorID(id);
+    try {
+        const med = await buscarMedicosPorID(id);
 
-    if (med !== undefined) {
-        try {
-            
+        if (med !== undefined) {
             if (med.foto) {
-                await fs.unlink(`./web/images/${med.foto}`);
+                const filePath = path.normalize(`./web/images/${med.foto}`);
+                
+                try {
+                    await fs.unlink(filePath);
+                    console.log(`Archivo ${med.foto} eliminado`);
+                } catch (unlinkError) {
+                    console.log(`Error al intentar eliminar ${med.foto}: ${unlinkError}`);
+                }
             }
 
-         
             await conexion.doc(id).delete();
             console.log("Medico borrado");
-            error = 0;
-        } catch (err) {
-            console.log("Error al borrar el medico" + err);
+            
+            return 0; 
+        } else {
+            console.log("No se encontró el médico a borrar");
+            return 1; 
         }
+    } catch (err) {
+        console.log("Error al borrar el médico: " + err);
+        return 1; 
     }
-
-    return error;
 }
+
+
 
 
   
