@@ -156,4 +156,5 @@ ruta.post("/editarMedico", subirImage(), async (req, res) => {
 
   
 
+
 module.exports = ruta;
